@@ -1,0 +1,56 @@
+program->statement program
+program->nil
+statement->if_stm
+statement->while_stm
+statement->for_stm
+statement->declare_stm
+statement->assign_stm SEMI
+sub_program->statement sub_program
+sub_program->nil
+body_stm->LEFT_BRACE sub_program RIGHT_BRACE
+body_stm->statement
+if_stm->IF LEFT_PAREN condition RIGHT_PAREN body_stm if_post_stm
+if_post_stm->else_stm
+if_post_stm->nil
+else_stm->ELSE body_stm
+condition->expression
+assign_stm->VAR_ID assign_num_post_stm
+assign_num_post_stm->ASSIGN expression
+assign_num_post_stm->LEFT_BRACKET expression RIGHT_BRACKET ASSIGN expression
+declare_stm->INT VAR_ID declare_num_post_stm SEMI
+declare_stm->BOOL VAR_ID declare_bool_post_stm SEMI
+declare_stm->DOUBLE VAR_ID declare_num_post_stm SEMI
+declare_array_stm->LEFT_BRACKET INTEGER RIGHT_BRACKET
+declare_num_post_stm->ASSIGN expression
+declare_bool_post_stm->ASSIGN expression
+declare_bool_post_stm->nil
+declare_num_post_stm->nil
+declare_bool_post_stm->declare_array_stm
+declare_num_post_stm->declare_array_stm
+op->ADD
+op->MINUS
+op->TIMES
+op->DIVIDE
+expression->REAL exp_post_stm
+expression->INTEGER exp_post_stm
+expression->variable exp_post_stm
+variable->VAR_ID var_post_stm
+var_post_stm->LEFT_BRACKET expression RIGHT_BRACKET
+var_post_stm->nil
+exp_post_stm->nil
+exp_post_stm->op expression
+expression->TRUE
+expression->FALSE
+expression->LEFT_PAREN expression RIGHT_PAREN
+op->EQUALS
+op->BIGGER_THAN
+op->SMALLER_THAN
+op->NOT_BIGGER_THAN
+op->NOT_SMALLER_THAN
+op->NOTEQUAL
+op->AND
+op->OR
+for_stm->FOR LEFT_PAREN for_init_stm SEMI condition SEMI assign_stm RIGHT_PAREN body_stm
+for_init_stm->INT VAR_ID ASSIGN expression
+for_init_stm->VAR_ID ASSIGN expression
+while_stm->WHILE LEFT_PAREN condition RIGHT_PAREN body_stm
